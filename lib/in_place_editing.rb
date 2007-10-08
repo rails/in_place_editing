@@ -1,9 +1,8 @@
 module InPlaceEditing
-  
   def self.included(base)
     base.extend(ClassMethods)
   end
-  
+
   # Example:
   #
   #   # Controller
@@ -19,9 +18,8 @@ module InPlaceEditing
       define_method("set_#{object}_#{attribute}") do
         @item = object.to_s.camelize.constantize.find(params[:id])
         @item.update_attribute(attribute, params[:value])
-        render :text => @item.send(attribute)
+        render :text => @item.send(attribute).to_s
       end
     end
   end
-  
-end  
+end
