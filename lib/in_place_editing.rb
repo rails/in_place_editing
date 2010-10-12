@@ -16,7 +16,7 @@ module InPlaceEditing
   module ClassMethods
     def in_place_edit_for(object, attribute, options = {})
       define_method("set_#{object}_#{attribute}") do
-        unless [:post, :put].include?(request.method) then
+        unless [:post, :put].include?(request.method.downcase.to_sym) then
           return render(:text => 'Method not allowed', :status => 405)
         end
         @item = object.to_s.camelize.constantize.find(params[:id])
